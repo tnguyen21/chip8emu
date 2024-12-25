@@ -88,7 +88,7 @@ class Emu():
             case (1, _, _, _): # JMP NNN
                 self.pc = (op & 0xfff)
             case (2, _, _, _): # CALL NNN
-                self.push(pc)
+                self.push(self.pc)
                 self.pc = (op & 0xfff)
             case (3, _, _, _): # 3XNN, skip next if VX == NN
                 x = nbl2
@@ -253,21 +253,12 @@ class Emu():
 
 
 if __name__ == "__main__":
-    # prog = b'\x00\x00\x00\xe0\x12\x00'
-
-    prog = open("roms/MAZE", "rb").read()
+    rom_path = sys.argv[1]
+    prog = open(rom_path, "rb").read()
 
     emu = Emu()
-
-    # confirm program loaded correctly
-    print(emu.ram[0x200:0x200+len(prog)])
     emu.load(prog)
-    print(emu.ram[0x200:0x200+len(prog)])
 
-    # for i in range(10):
-    #     print(f"tick {i}")
-    #     print(emu)
-    #     emu.tick()
     try:
         while True:
             print("\033[2J\033[H", end="")
