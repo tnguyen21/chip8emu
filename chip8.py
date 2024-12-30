@@ -181,13 +181,13 @@ class Emu():
             case (0xe, _, 9, 0xe): # SKIP KEY PRESS
                 x = nbl2
                 vc = self.v_reg[x]
-                key = self.keys[vx]
+                key = self.keys[vc]
                 if key:
                     self.pc += 2
             case (0xe, _, 0xa, 0xe): # SKIP KEY NOT PRESS
                 x = nbl2
                 vc = self.v_reg[x]
-                key = self.keys[vx]
+                key = self.keys[vc]
                 if not key:
                     self.pc += 2
             case (0xf, _, 0, 7): # VX = DT
@@ -196,9 +196,9 @@ class Emu():
             case (0xf, _, 0, 0xa): # WAIT KEY, blocking
                 x = nbl2
                 pressed = False
-                for k in self.keys:
-                    if k:
-                        self.v_reg[x] = k
+                for i, k in enumerate(self.keys):
+                    if k == 1:
+                        self.v_reg[x] = i
                         pressed = True
                         break
 
