@@ -162,7 +162,8 @@ class Emu():
                 rng = random.randint(0, 255)
                 self.v_reg[x] = rng & nn
             case (0xd, _, _, _): # DRAW
-                x, y = self.v_reg[nbl2], self.v_reg[nbl3]
+                x_coord = self.v_reg[nbl2]
+                y_coord = self.v_reg[nbl3]
                 n_rows = nbl4
                 flipped = False
                 for y_line in range(n_rows):
@@ -170,8 +171,8 @@ class Emu():
                     pixels = self.ram[addr]
                     for x_line in range(8):
                         if (pixels & (0b1000_0000 >> x_line)) != 0:
-                            x = (x + x_line) % SCREEN_W
-                            y = (y + y_line) % SCREEN_H
+                            x = (x_coord + x_line) % SCREEN_W
+                            y = (y_coord + y_line) % SCREEN_H
                             idx = x + SCREEN_W * y
                             flipped |= self.screen[idx]
                             self.screen[idx] ^= True
