@@ -2,6 +2,12 @@
 
 - chip8 emulator in Python
 - chip8 ROM disassembler
+- WIP
+
+## TO FIX
+
+- still some bugs with drawing graphics. most visible in CONNECT4
+- BRIX is not work; perhaps something wrong with parsing opcodes
 
 ## Credits
 
