@@ -236,12 +236,12 @@ class Emu():
 
 
     def _tick_timers(self):
-        if self.dt > 0: self.dt -= 1
+        if self.delay_timer > 0: self.delay_timer -= 1
 
-        if self.st > 0:
-            if self.st == 1: ... # beep
+        if self.sound_timer > 0:
+            if self.sound_timer == 1: ... # beep
 
-            self.dt -= 1
+            self.delay_timer -= 1
 
     def keypress(self, idx, pressed): self.keys[idx] = pressed
     def get_screen(self): return self.screen
